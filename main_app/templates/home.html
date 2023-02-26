@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="center main-title">World</h1>
+<div class="table-fixed centered">
+  <div class="card light-blue darken-1">
+    <div class="card-content white-text">
+      <table class="centered main-table">
+        <thead>
+          <tr>
+            <th>Confirmed Cases</th>
+            <th>Recovered Cases</th>
+            <th>Deaths</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-val="">{{ world.infected }}</td>
+            <td data-val="">{{ world.recovered }}</td>
+            <td data-val="">{{ world.deaths }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<h3 class="center">Tips To Protect Yourself and Others</h3>
+<div class="container">
+  <div class="center">
+    <div class="col s12 m6 l6">
+      <div class="center-align card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="https://i.imgur.com/pDMe8zr.png">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<h3 class="center">How To Properly Wash Your Hands</h3>
+
+<div class="container">
+  <div class="center">
+    <div class="col s12 m6 l6">
+      <div class="center-align card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="https://i.imgur.com/E4wEa9U.gif">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="health-tips container">
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="https://i.imgur.com/Lnr8a4U.png">
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="https://i.imgur.com/uR1rJVF.png">
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="https://i.imgur.com/AVnTwls.png">
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="https://i.imgur.com/54LzE6M.png">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

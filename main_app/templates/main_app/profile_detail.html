@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="pro-container">
+  <img class="circle" src="{{ profile_user.profile.avatar }}">
+  <h1 class="center">{{ profile_user.username }}</h1>
+  
+  {% if user.id == profile_user.id %}
+    <form action="" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ avatar_form }}
+      <input type="submit" value="Change Avatar" class="btn light-blue darken-1">
+    </form>
+  {% endif %}
+</div>
+
+{% if profile_user.country_set.first %}
+  <table class="striped list-table">
+    <thead>
+      <tr>
+        <th>Tracked Country</th>
+        <th>Current Cases</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in profile_user.country_set.all %}
+        <tr>
+          <td class="clickable" data-href="{% url 'countries_detail' c.id %}">{{ c.name }}</td>
+          <td class="clickable" data-href="{% url 'countries_detail' c.id %}" data-val="">{{ c.infected }}</td>
+          {% if user.id == profile_user.id %}
+            <td class="profile-untrack">
+              <form action="{% url 'unassoc_country' c.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Untrack" class="btn light-blue darken-1 untrack-hover">
+              </form>
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <h4 class="center">No Countries Currently Tracked</h4>
+{% endif %}
+
+{% endblock %}

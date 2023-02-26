@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="center main-title">{{ country.name }}</h1>
+
+<div class="table-fixed centered">
+  <div class="card light-blue darken-1">
+    <div class="card-content white-text">
+      <table class="centered main-table">
+        <thead>
+          <tr>
+            <th>Confirmed Cases</th>
+            <th>Recovered Cases</th>
+            <th>Deaths</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-val="">{{ country.infected }}</td>
+            <td data-val="">{{ country.recovered }}</td>
+            <td data-val="">{{ country.deaths }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="country-btns">
+  {% if country.province_set.first %}
+    <a href="{% url 'provinces_index' country.id %}" class="btn light-blue darken-3">Provinces</a>
+  {% endif %}
+  {% if user.is_authenticated %}
+    {% if country in user.country_set.all  %}
+      <form action="{% url 'unassoc_country' country.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Untrack" class="btn light-blue darken-3 untrack-hover">
+      </form>
+    {% else %}
+      <form action="{% url 'assoc_country' country.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Track" class="btn light-blue darken-3">
+      </form>
+    {% endif %}
+  {% endif %}
+</div>
+
+<h3>Comments</h3>
+
+{% if user.is_authenticated %}
+  <form class="col s12" action="{% url 'add_comment' country.id %}" method="post">
+    {% csrf_token %}
+    {{ comment_form }}
+    <button class="btn light-blue darken-1" type="submit" name="action">Submit
+        <i class="right material-icons">send</i>
+    </button>
+  </form>
+{% endif %}
+<br>
+
+{% if country.comment_set.first %}
+  {% for comment in country.comment_set.all %}
+    <div class="card">
+      <div class="comment-container">
+        <div class="comment-avatar">
+          <img class="circle" src="{{ comment.created_by.profile.avatar }}">
+        </div>
+        <div class="comment-content">
+          <a href="{% url 'profiles_detail' comment.created_by.id %}">{{ comment.created_by.username }}</a>
+          <p>{{ comment.content }}</p>
+        </div>
+      </div>
+      <p class="comment-date">{{ comment.posted_at }}</p>
+
+      {% if user.id == comment.created_by.id %}
+      <button id="edit-btn" data-id="{{ forloop.counter }}" class="btn light-blue darken-1">Edit</button>
+      <div class="edit-form" data-id="{{ forloop.counter }}">
+        <form action="{% url 'update_comment' country.id comment.id %}" method="post">
+          {% csrf_token %}
+          <textarea name="content" maxlength="250" required>{{ comment.content }}</textarea>
+          <input type="submit" value="Update" class="btn light-blue darken-1 update-btn">
+        </form>
+        <form class="delete-btn" action="{% url 'delete_comment' country.id comment.id %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="Delete" class="btn light-blue darken-1 untrack-hover">
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <h5 class="center">No comments posted.</h5>
+{% endif %}
+<br>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<a class="back-link" href="{% url 'provinces_index' county_list.first.province.country.id %}">Back to Provinces</a>
+
+<h1>Counties</h1>
+
+<form method="get">
+  <input type="search" name="search" placeholder="Search Counties">
+</form>
+
+<table class="striped list-table">
+  <thead>
+    <tr>
+      <th><a href="?order_by=name&sort={{ sort_type }}">County</a></th>
+      <th><a href="?order_by=infected&sort={{ sort_type }}">Current Cases</a></th>
+      <th><a href="?order_by=recovered&sort={{ sort_type }}">Recovered Cases</a></th>
+      <th><a href="?order_by=deaths&sort={{ sort_type }}">Deaths</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for county in county_list %}
+      <tr>
+        <td>{{ county.name }}</td>
+        <td data-val="">{{ county.infected }}</td>
+        <td data-val="">{{ county.recovered }}</td>
+        <td data-val="">{{ county.deaths }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
