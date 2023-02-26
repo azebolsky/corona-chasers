@@ -31,8 +31,7 @@ environ.Env.read_env()
 SECRET_KEY = '6a&1cw(#(rsj)*z!tupn&#v_=x(1g3qd=_28vi-&ba2k!vz3-*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ['corona-chasers.herokuapp.com']
 ALLOWED_HOSTS = ['*']
@@ -84,14 +83,14 @@ WSGI_APPLICATION = 'corona_chasers.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'corona',
-    }
-}
-'''
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'corona',
+#     }
+# }
+
 # render PostgreSQL database (Live)
 import dj_database_url
 
